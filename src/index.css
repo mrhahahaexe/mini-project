@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+/* Dark mode driven by the .dark class on <html> (toggled by the Navbar),
+   instead of Tailwind v4's default prefers-color-scheme media query. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary-50: #f0fdf4;
+  --color-primary-100: #dcfce7;
+  --color-primary-200: #bbf7d0;
+  --color-primary-500: #22c55e;
+  --color-primary-600: #16a34a;
+  --color-primary-700: #15803d;
+
+  /* Custom intermediate shades used across the UI (so dark-mode text/hovers actually render) */
+  --color-primary-450: #6ede97;
+  --color-primary-650: #159143;
+  --color-primary-750: #126b33;
+
+  --color-slate-250: #e7ecf1;
+  --color-slate-350: #aab8c8;
+  --color-slate-450: #7e8fa0;
+  --color-slate-650: #4a5a6d;
+  --color-slate-750: #3a4858;
+  --color-slate-805: #2b3a4d;
+  --color-slate-850: #232f41;
+  --color-slate-905: #16202f;
+
+  --color-emerald-450: #22c78e;
+  --color-emerald-650: #05845a;
+  --color-rose-250: #feb9c1;
+  --color-blue-750: #1e47c3;
+  
+  --color-accent-500: #f97316;
+  --color-accent-600: #ea580c;
+  
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Poppins', 'Inter', system-ui, sans-serif;
+  
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-fade-in: fade-in 0.2s ease-out;
+  --animate-fade-in-down: fade-in-down 0.25s ease-out;
+  --animate-scale-up: scale-up 0.25s ease-out;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fade-in-down {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scale-up {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+}
+
+/* Base custom resets */
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-800 font-sans antialiased selection:bg-primary-100 selection:text-primary-700;
+  }
+  .dark body {
+    @apply bg-slate-950 text-slate-100 selection:bg-slate-800 selection:text-slate-200;
+  }
+  html {
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-100 dark:bg-slate-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-slate-600 rounded-full hover:bg-slate-400 dark:hover:bg-slate-500;
+}
