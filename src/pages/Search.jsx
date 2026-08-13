@@ -344,7 +344,7 @@ export default function Search({ searchState, setSearchState }) {
                 <ShieldAlert className="h-4 w-4 text-slate-400" />
                 <span>Exclusions (Allergies)</span>
               </span>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {ALLERGIES.map((allergy) => {
                   const checked = searchState.allergies.includes(allergy.id);
                   return (

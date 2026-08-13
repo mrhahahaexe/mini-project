@@ -562,7 +562,7 @@ export default function Chat() {
                   <ChefHat className="h-4 w-4" />
                 </div>
               )}
-              <div className={`max-w-[78%] px-3.5 py-2.5 text-sm leading-relaxed shadow-sm ${isChef
+              <div className={`max-w-[88%] sm:max-w-[78%] px-3.5 py-2.5 text-sm leading-relaxed shadow-sm ${isChef
                 ? 'bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800 rounded-2xl rounded-bl-sm text-slate-800 dark:text-slate-100'
                 : 'bg-primary-600 text-white rounded-2xl rounded-br-sm'
               }`}>
@@ -611,7 +611,7 @@ export default function Chat() {
 
       {/* Suggested prompts */}
       <div className="px-4 sm:px-6 pt-2">
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap sm:flex-nowrap overflow-x-auto gap-1.5 pb-1 sm:pb-0 scrollbar-none">
           {SUGGESTED_PROMPTS.slice(0, 4).map((prompt, idx) => (
             <button
               key={idx}

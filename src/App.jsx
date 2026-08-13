@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Search from './pages/Search';
@@ -9,8 +9,17 @@ import Dashboard from './pages/Dashboard';
 import Safety from './pages/Safety';
 import Tips from './pages/Tips';
 import Profile from './pages/Profile';
+import Login from './pages/Login';
 
 export default function App() {
+  const location = useLocation();
+
+  // 0. User Authentication State
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('leftover_chef_user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+
   // 1. Search Criteria State
   const [searchState, setSearchState] = useState(() => {
     const savedDiet = localStorage.getItem('leftover_chef_diet') || 'None';
@@ -51,6 +60,14 @@ export default function App() {
 
   // Save changes to LocalStorage
   useEffect(() => {
+    if (user) {
+      localStorage.setItem('leftover_chef_user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('leftover_chef_user');
+    }
+  }, [user]);
+
+  useEffect(() => {
     localStorage.setItem('leftover_chef_favorites', JSON.stringify(favorites));
   }, [favorites]);
 
@@ -62,7 +79,16 @@ export default function App() {
     localStorage.setItem('leftover_chef_water_log', waterLog.toString());
   }, [waterLog]);
 
-  // Handlers
+  // Auth Handlers
+  const handleLogin = (userData) => {
+    setUser(userData);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+  };
+
+  // Recipe & Log Handlers
   const handleToggleFavorite = (recipeId) => {
     setFavorites((prev) => 
       prev.includes(recipeId) ? prev.filter(id => id !== recipeId) : [...prev, recipeId]
@@ -77,7 +103,6 @@ export default function App() {
       macros: { ...recipe.macros },
       date: today
     };
-    // Avoid duplicate rows from double-clicking "Mark as Cooked"
     setFoodLog((prev) => {
       const exists = prev.some(
         (m) => m.name === newMeal.name && m.date === today
@@ -88,8 +113,6 @@ export default function App() {
   };
 
   const handleRemoveFoodLog = (meal) => {
-    // Remove by identity (name + date + calories) so it works from the filtered
-    // "today" list without index-mismatch bugs
     setFoodLog((prev) =>
       prev.filter(
         (m) => !(m.name === meal.name && m.date === meal.date && m.calories === meal.calories)
@@ -98,7 +121,6 @@ export default function App() {
   };
 
   const handleUpdateFoodLog = (meal, updates) => {
-    // Update by identity (same match rule as remove) so it works from the "today" list
     setFoodLog((prev) =>
       prev.map((m) =>
         m.name === meal.name && m.date === meal.date && m.calories === meal.calories
@@ -114,60 +136,82 @@ export default function App() {
 
   return (
     <div className="flex flex-col h-dvh bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 overflow-hidden">
-      <Navbar />
+      <Navbar user={user} onLogout={handleLogout} />
       
       {/* Route Router Container — single scroll container for all pages */}
-       <main className="flex-1 min-h-0 overflow-y-auto">
-         <div className="h-full flex flex-col">
-          <Routes>
-          <Route path="/" element={<Home />} />
-          <Route 
-            path="/search" 
-            element={
-              <Search 
-                searchState={searchState} 
-                setSearchState={setSearchState} 
-              />
-            } 
-          />
-          <Route 
-            path="/recipes" 
-            element={
-              <Recipes 
-                searchState={searchState} 
-                favorites={favorites} 
-                onToggleFavorite={handleToggleFavorite} 
-                onAddFoodLog={handleAddFoodLog}
-              />
-            } 
-          />
-          <Route path="/chat" element={<Chat />} />
-          <Route 
-            path="/dashboard" 
-            element={
-              <Dashboard
-                foodLog={foodLog}
-                onRemoveFoodLog={handleRemoveFoodLog}
-                onUpdateFoodLog={handleUpdateFoodLog}
-                waterLog={waterLog}
-                onUpdateWaterLog={handleUpdateWaterLog}
-              />
-            } 
-          />
-          <Route path="/safety" element={<Safety />} />
-          <Route path="/tips" element={<Tips />} />
-          <Route 
-            path="/profile" 
-            element={
-              <Profile 
-                searchState={searchState} 
-                setSearchState={setSearchState} 
-                favorites={favorites} 
-                onToggleFavorite={handleToggleFavorite} 
-              />
-            } 
-          />
-        </Routes>
+      <main className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden w-full max-w-full">
+        <div key={location.pathname} className="animate-page-scale-fade h-full flex flex-col w-full max-w-full">
+          <Routes location={location}>
+            <Route path="/" element={<Home user={user} />} />
+            <Route 
+              path="/search" 
+              element={
+                user ? (
+                  <Search 
+                    searchState={searchState} 
+                    setSearchState={setSearchState} 
+                  />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              } 
+            />
+            <Route 
+              path="/recipes" 
+              element={
+                user ? (
+                  <Recipes 
+                    searchState={searchState} 
+                    favorites={favorites} 
+                    onToggleFavorite={handleToggleFavorite} 
+                    onAddFoodLog={handleAddFoodLog}
+                  />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              } 
+            />
+            <Route 
+              path="/chat" 
+              element={user ? <Chat /> : <Navigate to="/login" replace />} 
+            />
+            <Route 
+              path="/dashboard" 
+              element={
+                user ? (
+                  <Dashboard
+                    foodLog={foodLog}
+                    onRemoveFoodLog={handleRemoveFoodLog}
+                    onUpdateFoodLog={handleUpdateFoodLog}
+                    waterLog={waterLog}
+                    onUpdateWaterLog={handleUpdateWaterLog}
+                  />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              } 
+            />
+            <Route path="/safety" element={<Safety />} />
+            <Route path="/tips" element={<Tips />} />
+            <Route 
+              path="/profile" 
+              element={
+                user ? (
+                  <Profile 
+                    user={user}
+                    onLogout={handleLogout}
+                    searchState={searchState} 
+                    setSearchState={setSearchState} 
+                    favorites={favorites} 
+                    onToggleFavorite={handleToggleFavorite} 
+                  />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              } 
+            />
+            <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          </Routes>
         </div>
       </main>
     </div>

@@ -271,14 +271,14 @@ export default function Dashboard({ foodLog, onRemoveFoodLog, onUpdateFoodLog, w
                   <div className="flex items-center gap-1">
                   <button
                     onClick={() => startEdit(meal)}
-                    className="p-2 text-slate-400 hover:text-primary-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all opacity-0 group-hover:opacity-100"
+                    className="p-2 text-slate-400 hover:text-primary-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
                     title="Edit Meal"
                   >
                     <Pencil className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => onRemoveFoodLog(meal)}
-                    className="p-2 text-slate-400 hover:text-rose-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all opacity-0 group-hover:opacity-100"
+                    className="p-2 text-slate-400 hover:text-rose-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
                     title="Remove Meal"
                   >
                     <Trash2 className="h-4 w-4" />

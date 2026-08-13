@@ -26,8 +26,8 @@ export default function RecipeDetailModal({
     );
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-fade-in">
-      <div className="relative bg-white dark:bg-slate-900 w-full max-w-4xl max-h-[85vh] overflow-y-auto rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 animate-scale-up">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-950/60 backdrop-blur-sm animate-fade-in">
+      <div className="relative bg-white dark:bg-slate-900 w-full max-w-4xl max-h-[92vh] sm:max-h-[85vh] overflow-y-auto rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 animate-scale-up">
 
         {/* Modal Header/Close */}
         <button

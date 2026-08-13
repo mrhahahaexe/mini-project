@@ -30,90 +30,113 @@ export default function Safety() {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12 sm:px-6 lg:px-8 space-y-10">
+    <div className="w-full max-w-6xl mx-auto px-4 py-8 sm:py-12 sm:px-6 lg:px-8 space-y-8 sm:space-y-10 overflow-x-hidden">
       
       {/* Header */}
-      <div className="text-center max-w-2xl mx-auto space-y-4">
+      <div className="text-center max-w-2xl mx-auto space-y-3 sm:space-y-4">
         <div className="p-3 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-500 rounded-2xl w-fit mx-auto border border-emerald-100/30">
-          <ShieldCheck className="h-8 w-8" />
+          <ShieldCheck className="h-7 w-7 sm:h-8 sm:w-8" />
         </div>
-        <h1 className="font-display font-black text-3xl text-slate-905 dark:text-white">
+        <h1 className="font-display font-black text-2xl sm:text-3xl text-slate-900 dark:text-white">
           Food Safety & Health Guides
         </h1>
-        <p className="text-slate-500 dark:text-slate-400 font-medium">
+        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed px-2">
           Zero waste does not mean compromising your health. Learn how to store food safely, check for spoilage, and cook meals to safe temperatures.
         </p>
       </div>
 
-      {/* Tabs Switcher */}
-      <div className="flex justify-center border-b border-slate-200 dark:border-slate-800">
-        <div className="flex space-x-2 p-1 bg-slate-100 dark:bg-slate-900 rounded-2xl border border-slate-200/50 dark:border-slate-800 mb-6">
+      {/* Responsive Tabs Switcher Bar */}
+      <div className="w-full max-w-full overflow-x-auto pb-2 scrollbar-none">
+        <div className="flex sm:justify-center gap-1.5 p-1.5 bg-slate-100 dark:bg-slate-900 rounded-2xl border border-slate-200/50 dark:border-slate-800 min-w-max mx-auto sm:w-fit">
           <button
             onClick={() => setActiveTab('storage')}
-            className={`flex items-center space-x-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 ${
+            className={`flex items-center space-x-2 px-3.5 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 ${
               activeTab === 'storage'
-                ? 'bg-white dark:bg-slate-805 text-primary-650 dark:text-primary-400 shadow-sm border border-slate-200/30 dark:border-slate-800'
+                ? 'bg-white dark:bg-slate-800 text-primary-600 dark:text-primary-400 shadow-sm border border-slate-200/30 dark:border-slate-700'
                 : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'
             }`}
           >
-            <Archive className="h-4.5 w-4.5" />
-            <span>Food Storage Limits</span>
+            <Archive className="h-4 w-4" />
+            <span>Food Storage</span>
           </button>
           <button
             onClick={() => setActiveTab('temps')}
-            className={`flex items-center space-x-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 ${
+            className={`flex items-center space-x-2 px-3.5 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 ${
               activeTab === 'temps'
-                ? 'bg-white dark:bg-slate-805 text-primary-650 dark:text-primary-400 shadow-sm border border-slate-200/30 dark:border-slate-800'
+                ? 'bg-white dark:bg-slate-800 text-primary-600 dark:text-primary-400 shadow-sm border border-slate-200/30 dark:border-slate-700'
                 : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'
             }`}
           >
-            <Thermometer className="h-4.5 w-4.5" />
-            <span>Cooking Temperatures</span>
+            <Thermometer className="h-4 w-4" />
+            <span>Cooking Temps</span>
           </button>
           <button
             onClick={() => setActiveTab('spoilage')}
-            className={`flex items-center space-x-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 ${
+            className={`flex items-center space-x-2 px-3.5 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 ${
               activeTab === 'spoilage'
-                ? 'bg-white dark:bg-slate-805 text-primary-650 dark:text-primary-400 shadow-sm border border-slate-200/30 dark:border-slate-800'
+                ? 'bg-white dark:bg-slate-800 text-primary-600 dark:text-primary-400 shadow-sm border border-slate-200/30 dark:border-slate-700'
                 : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'
             }`}
           >
-            <AlertOctagon className="h-4.5 w-4.5" />
-            <span>Spoilage & Toxins</span>
+            <AlertOctagon className="h-4 w-4" />
+            <span>Spoilage Signs</span>
           </button>
         </div>
       </div>
 
-      {/* Tab Contents */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80 rounded-3xl p-6 sm:p-8 shadow-sm">
+      {/* Tab Contents Container */}
+      <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/80 rounded-3xl p-4 sm:p-8 shadow-sm w-full max-w-full overflow-hidden">
         
         {/* Storage Tab */}
         {activeTab === 'storage' && (
           <div className="space-y-6">
-            <div className="space-y-2">
-              <h3 className="font-display font-bold text-xl text-slate-850 dark:text-white">Fridge and Freezer Storage Guide</h3>
-              <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">
+            <div className="space-y-1 sm:space-y-2">
+              <h3 className="font-display font-bold text-lg sm:text-xl text-slate-850 dark:text-white">Fridge & Freezer Storage Guide</h3>
+              <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-medium">
                 Keep track of how long common pantry items remain safe to consume when stored properly.
               </p>
             </div>
 
-            <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800">
-              <table className="min-w-full divide-y divide-slate-200 dark:divide-slate-800 text-sm text-left">
+            {/* Mobile Card View (< 640px) */}
+            <div className="block sm:hidden space-y-3">
+              {storageItems.map((item, idx) => (
+                <div key={idx} className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/60 dark:border-slate-800 space-y-3">
+                  <h4 className="font-display font-bold text-sm text-slate-900 dark:text-white capitalize">{item.name}</h4>
+                  <div className="grid grid-cols-2 gap-2 text-xs font-semibold">
+                    <div className="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200/40 dark:border-emerald-900/40">
+                      <span className="block text-[10px] font-bold uppercase text-slate-400">Fridge</span>
+                      <span className="text-emerald-600 dark:text-emerald-400 font-bold">{item.fridge}</span>
+                    </div>
+                    <div className="p-2 rounded-xl bg-blue-50 dark:bg-blue-950/30 border border-blue-200/40 dark:border-blue-900/40">
+                      <span className="block text-[10px] font-bold uppercase text-slate-400">Freezer</span>
+                      <span className="text-blue-600 dark:text-blue-400 font-bold">{item.freezer}</span>
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium leading-relaxed pt-1 border-t border-slate-200/40 dark:border-slate-850">
+                    💡 {item.tip}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Table View (>= 640px) */}
+            <div className="hidden sm:block w-full max-w-full overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800">
+              <table className="w-full text-sm text-left divide-y divide-slate-200 dark:divide-slate-800">
                 <thead className="bg-slate-50 dark:bg-slate-950 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   <tr>
-                    <th scope="col" className="px-6 py-4">Food Item</th>
-                    <th scope="col" className="px-6 py-4">Refrigerator (40°F / 4°C)</th>
-                    <th scope="col" className="px-6 py-4">Freezer (0°F / -18°C)</th>
-                    <th scope="col" className="px-6 py-4 hidden md:table-cell">Storage Tip</th>
+                    <th scope="col" className="px-5 py-3.5 whitespace-nowrap">Food Item</th>
+                    <th scope="col" className="px-5 py-3.5 whitespace-nowrap">Refrigerator (40°F / 4°C)</th>
+                    <th scope="col" className="px-5 py-3.5 whitespace-nowrap">Freezer (0°F / -18°C)</th>
+                    <th scope="col" className="px-5 py-3.5 hidden md:table-cell">Storage Tip</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 dark:divide-slate-800 font-semibold text-slate-700 dark:text-slate-300">
                   {storageItems.map((item, idx) => (
                     <tr key={idx} className="hover:bg-slate-50/50 dark:hover:bg-slate-850/55 transition-colors">
-                      <td className="px-6 py-4 font-bold text-slate-900 dark:text-white capitalize">{item.name}</td>
-                      <td className="px-6 py-4 text-emerald-650 dark:text-emerald-400">{item.fridge}</td>
-                      <td className="px-6 py-4 text-blue-600 dark:text-blue-400">{item.freezer}</td>
-                      <td className="px-6 py-4 text-slate-500 dark:text-slate-400 text-xs font-medium max-w-xs leading-relaxed hidden md:table-cell">{item.tip}</td>
+                      <td className="px-5 py-3.5 font-bold text-slate-900 dark:text-white capitalize whitespace-nowrap">{item.name}</td>
+                      <td className="px-5 py-3.5 text-emerald-600 dark:text-emerald-400 whitespace-nowrap">{item.fridge}</td>
+                      <td className="px-5 py-3.5 text-blue-600 dark:text-blue-400 whitespace-nowrap">{item.freezer}</td>
+                      <td className="px-5 py-3.5 text-slate-500 dark:text-slate-400 text-xs font-medium max-w-xs leading-relaxed hidden md:table-cell">{item.tip}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -125,27 +148,40 @@ export default function Safety() {
         {/* Temperatures Tab */}
         {activeTab === 'temps' && (
           <div className="space-y-6">
-            <div className="space-y-2">
-              <h3 className="font-display font-bold text-xl text-slate-850 dark:text-white">Safe Internal Cooking Temperatures</h3>
-              <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">
+            <div className="space-y-1 sm:space-y-2">
+              <h3 className="font-display font-bold text-lg sm:text-xl text-slate-850 dark:text-white">Safe Internal Cooking Temperatures</h3>
+              <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-medium">
                 Using a food thermometer is the only reliable way to ensure bacteria are destroyed during cooking.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800">
-                <table className="min-w-full divide-y divide-slate-200 dark:divide-slate-800 text-sm text-left">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+              {/* Mobile Card View (< 640px) */}
+              <div className="block sm:hidden space-y-2.5">
+                {tempItems.map((item, idx) => (
+                  <div key={idx} className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/60 dark:border-slate-800 flex items-center justify-between gap-3">
+                    <span className="font-bold text-xs text-slate-900 dark:text-white">{item.food}</span>
+                    <span className="px-3 py-1.5 rounded-xl bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400 font-extrabold text-xs flex-shrink-0 border border-rose-200/40 dark:border-rose-900/40">
+                      {item.temp}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Desktop Table View (>= 640px) */}
+              <div className="hidden sm:block w-full max-w-full overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800">
+                <table className="w-full text-sm text-left divide-y divide-slate-200 dark:divide-slate-800">
                   <thead className="bg-slate-50 dark:bg-slate-950 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                     <tr>
-                      <th scope="col" className="px-6 py-4">Food Category</th>
-                      <th scope="col" className="px-6 py-4">Min Temperature</th>
+                      <th scope="col" className="px-5 py-3.5">Food Category</th>
+                      <th scope="col" className="px-5 py-3.5 whitespace-nowrap">Min Temperature</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200 dark:divide-slate-800 font-semibold text-slate-700 dark:text-slate-350">
                     {tempItems.map((item, idx) => (
                       <tr key={idx} className="hover:bg-slate-50/50 dark:hover:bg-slate-850/55 transition-colors">
-                        <td className="px-6 py-4 font-bold text-slate-900 dark:text-white">{item.food}</td>
-                        <td className="px-6 py-4 text-rose-600 dark:text-rose-400 font-extrabold">{item.temp}</td>
+                        <td className="px-5 py-3.5 font-bold text-slate-900 dark:text-white">{item.food}</td>
+                        <td className="px-5 py-3.5 text-rose-600 dark:text-rose-400 font-extrabold whitespace-nowrap">{item.temp}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -153,7 +189,7 @@ export default function Safety() {
               </div>
 
               {/* Explanatory graphic box */}
-              <div className="p-6 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-850 flex flex-col justify-between space-y-4">
+              <div className="p-5 sm:p-6 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-850 flex flex-col justify-between space-y-4">
                 <div className="space-y-2">
                   <h4 className="font-display font-bold text-sm text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
                     <ClipboardList className="h-4.5 w-4.5 text-primary-600" />
@@ -166,7 +202,7 @@ export default function Safety() {
                     <li>Always reheat leftover dishes to a minimum of **165°F (74°C)**.</li>
                   </ul>
                 </div>
-                <div className="p-4 bg-rose-50/50 dark:bg-rose-950/20 rounded-xl border border-rose-200/35 text-xs text-rose-800 dark:text-rose-400 font-semibold leading-relaxed">
+                <div className="p-3.5 bg-rose-50/50 dark:bg-rose-950/20 rounded-xl border border-rose-200/35 text-xs text-rose-800 dark:text-rose-400 font-semibold leading-relaxed">
                   ⚠️ **Note:** Color is NOT a reliable indicator of doneness. Ground beef can turn brown before it reaches a safe temperature, and chicken can remain pink even when fully cooked.
                 </div>
               </div>
@@ -177,19 +213,19 @@ export default function Safety() {
         {/* Spoilage Tab */}
         {activeTab === 'spoilage' && (
           <div className="space-y-6">
-            <div className="space-y-2">
-              <h3 className="font-display font-bold text-xl text-slate-850 dark:text-white">Signs of Food Spoilage</h3>
-              <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">
+            <div className="space-y-1 sm:space-y-2">
+              <h3 className="font-display font-bold text-lg sm:text-xl text-slate-850 dark:text-white">Signs of Food Spoilage</h3>
+              <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-medium">
                 Learn how to detect expired or dangerous foods using your senses, and prevent food-borne illnesses.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {spoilageItems.map((item, idx) => (
-                <div key={idx} className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 space-y-3 hover:shadow-sm transition-shadow">
-                  <h4 className="font-display font-bold text-base text-slate-900 dark:text-white capitalize flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-rose-500"></span>
-                    {item.food}
+                <div key={idx} className="p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 space-y-3 hover:shadow-sm transition-shadow">
+                  <h4 className="font-display font-bold text-sm sm:text-base text-slate-900 dark:text-white capitalize flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-rose-500 flex-shrink-0"></span>
+                    <span>{item.food}</span>
                   </h4>
                   <div className="space-y-1">
                     <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">Spoilage Signs:</span>

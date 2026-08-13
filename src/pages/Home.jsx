@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, Trash2, ShieldAlert, MessageSquare, ArrowRight, Apple, Flame } from 'lucide-react';
+import { Sparkles, Trash2, ShieldAlert, MessageSquare, ArrowRight, Apple, Flame, LogIn } from 'lucide-react';
 
-export default function Home() {
+export default function Home({ user }) {
   const stats = [
     { id: 1, val: "1.3B Tons", label: "Food wasted globally every year", desc: "Equivalent to 1/3 of all food produced.", icon: Trash2, color: "text-rose-500 bg-rose-50 dark:bg-rose-950/30" },
     { id: 2, val: "$1,500", label: "Average household cost", desc: "Annual value of edible food thrown away per family.", icon: Trash2, color: "text-amber-500 bg-amber-50 dark:bg-amber-950/30" },
@@ -10,9 +10,9 @@ export default function Home() {
   ];
 
   const features = [
-    { title: "Smart Recipe Matcher", desc: "Tell us what you have, and we'll calculate match scores to give you recipes you can make right now.", link: "/search", icon: Sparkles },
-    { title: "AI Cooking Coach", desc: "Ask our conversational AI about safe substitutions, cooking temperatures, and meal ideas.", link: "/chat", icon: MessageSquare },
-    { title: "Nutrition Tracker", desc: "Track calories, water intake, and macronutrients of meals you cook to reach your fitness goals.", link: "/dashboard", icon: Flame }
+    { title: "Smart Recipe Matcher", desc: "Tell us what you have, and we'll calculate match scores to give you recipes you can make right now.", link: user ? "/search" : "/login?mode=signup", icon: Sparkles },
+    { title: "AI Cooking Coach", desc: "Ask our conversational AI about safe substitutions, cooking temperatures, and meal ideas.", link: user ? "/chat" : "/login?mode=signup", icon: MessageSquare },
+    { title: "Nutrition Tracker", desc: "Track calories, water intake, and macronutrients of meals you cook to reach your fitness goals.", link: user ? "/dashboard" : "/login?mode=signup", icon: Flame }
   ];
 
   return (
@@ -39,24 +39,37 @@ export default function Home() {
             </h1>
             
             <p className="text-lg text-slate-600 dark:text-slate-350 max-w-xl mx-auto lg:mx-0 font-medium">
-              Millions of households waste food simply because they don't know what to cook. Just enter the ingredients in your fridge, and let AI recommend the perfect recipe.
+              Millions of households waste food simply because they don't know what to cook. Create an account to enter ingredients and let AI recommend the perfect recipe.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-              <Link
-                to="/search"
-                className="w-full sm:w-auto flex items-center justify-center space-x-2 px-8 py-4 rounded-2xl font-bold bg-primary-600 hover:bg-primary-750 text-white shadow-lg shadow-primary-500/20 hover:shadow-xl hover:shadow-primary-500/30 transition-all duration-200 group"
-              >
-                <span>Find Recipes Now</span>
-                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                to="/chat"
-                className="w-full sm:w-auto flex items-center justify-center space-x-2 px-8 py-4 rounded-2xl font-bold bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 shadow-sm transition-all duration-200"
-              >
-                <MessageSquare className="h-5 w-5" />
-                <span>Chat with Chef AI</span>
-              </Link>
+              {user ? (
+                <>
+                  <Link
+                    to="/search"
+                    className="w-full sm:w-auto flex items-center justify-center space-x-2 px-8 py-4 rounded-2xl font-bold bg-primary-600 hover:bg-primary-750 text-white shadow-lg shadow-primary-500/20 hover:shadow-xl hover:shadow-primary-500/30 transition-all duration-200 group"
+                  >
+                    <span>Find Recipes Now</span>
+                    <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                  <Link
+                    to="/chat"
+                    className="w-full sm:w-auto flex items-center justify-center space-x-2 px-8 py-4 rounded-2xl font-bold bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 shadow-sm transition-all duration-200"
+                  >
+                    <MessageSquare className="h-5 w-5" />
+                    <span>Chat with Chef AI</span>
+                  </Link>
+                </>
+              ) : (
+                <Link
+                  to="/login?mode=signup"
+                  className="w-full sm:w-auto flex items-center justify-center space-x-2 px-8 py-4 rounded-2xl font-bold bg-primary-600 hover:bg-primary-750 text-white shadow-lg shadow-primary-500/20 hover:shadow-xl hover:shadow-primary-500/30 transition-all duration-200 group"
+                >
+                  <LogIn className="h-5 w-5" />
+                  <span>Get Started</span>
+                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              )}
             </div>
           </div>
 

@@ -85,9 +85,9 @@ export default function Recipes({ searchState, favorites, onToggleFavorite, onAd
 
       {/* Success Cook Toast */}
       {cookedSuccess && (
-        <div className="fixed bottom-5 right-5 z-55 flex items-center space-x-2 bg-gradient-to-r from-emerald-500 to-primary-600 text-white px-6 py-4 rounded-2xl shadow-xl animate-bounce">
-          <Check className="h-5 w-5 stroke-[3]" />
-          <span className="font-semibold text-sm">Meal added to daily Nutrition Log! Check it out in Dashboard.</span>
+        <div className="fixed bottom-5 left-4 right-4 sm:left-auto sm:right-5 z-50 flex items-center space-x-2 bg-gradient-to-r from-emerald-500 to-primary-600 text-white px-5 py-3.5 sm:px-6 sm:py-4 rounded-2xl shadow-xl animate-bounce max-w-md mx-auto">
+          <Check className="h-5 w-5 stroke-[3] flex-shrink-0" />
+          <span className="font-semibold text-xs sm:text-sm">Meal added to daily Nutrition Log! Check it out in Dashboard.</span>
         </div>
       )}
 
