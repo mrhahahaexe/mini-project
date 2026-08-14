@@ -137,15 +137,15 @@ export default function Profile({ user, onLogout, searchState, setSearchState, f
   };
 
   return (
-    <div className="relative min-h-full pb-16 pt-6 sm:pt-10">
+    <div className="relative min-h-full pb-16 pt-6 sm:pt-10 overflow-hidden">
       
-      {/* Glow Orbs Background */}
-      <div className="absolute top-10 left-1/4 w-96 h-96 bg-primary-400/15 dark:bg-primary-500/10 rounded-full blur-3xl -z-10 animate-pulse-slow"></div>
-      <div className="absolute top-1/3 right-10 w-96 h-96 bg-emerald-400/15 dark:bg-emerald-500/10 rounded-full blur-3xl -z-10 animate-pulse-slow" style={{ animationDelay: '1.5s' }}></div>
+      {/* Dispersing Ambient Green Gradient Ripple Waves (Positioned Top Right - Subtle Opacity) */}
+      <div className="absolute top-10 right-10 sm:right-16 w-96 h-96 rounded-full bg-gradient-to-tr from-emerald-500/10 via-primary-500/08 to-teal-400/04 blur-3xl -z-10 animate-[disperse-ripple_8s_cubic-bezier(0.16,1,0.3,1)_infinite] pointer-events-none"></div>
+      <div className="absolute top-10 right-10 sm:right-16 w-96 h-96 rounded-full bg-gradient-to-tr from-primary-500/10 via-emerald-400/08 to-green-300/04 blur-3xl -z-10 animate-[disperse-ripple_8s_cubic-bezier(0.16,1,0.3,1)_infinite] pointer-events-none" style={{ animationDelay: '4s' }}></div>
 
       {/* Floating Success Toast */}
       {profileSaved && (
-        <div className="fixed bottom-6 right-6 z-55 flex items-center space-x-2.5 bg-gradient-to-r from-emerald-500 to-primary-600 text-white px-5 py-3.5 rounded-2xl shadow-xl animate-bounce">
+        <div className="fixed bottom-6 right-6 z-55 flex items-center space-x-2.5 bg-gradient-to-r from-emerald-500 to-primary-600 text-white px-5 py-3.5 rounded-2xl shadow-xl animate-scale-up">
           <CheckCircle2 className="h-5 w-5 stroke-[2.5]" />
           <span className="font-semibold text-xs sm:text-sm">{toastMessage}</span>
         </div>

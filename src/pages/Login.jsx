@@ -94,26 +94,23 @@ export default function Login({ onLogin }) {
       email: formData.email.trim(),
       diet: formData.diet,
       avatar: `https://api.dicebear.com/7.x/bottts/svg?seed=${formData.name}`,
-      loggedIn: true
+      loggedIn: false,
+      isVerified: false
     };
 
-    if (onLogin) onLogin(userObj);
-    setSuccessToast(`Account created! Welcome to LeftOver Chef, ${userObj.name}!`);
+    localStorage.setItem('leftover_chef_pending_email', userObj.email);
+    setSuccessToast(`Account created! Please check your email to verify your account.`);
     setTimeout(() => {
-      navigate('/dashboard');
-    }, 1000);
+      navigate('/verify-email', { state: { email: userObj.email, userObj } });
+    }, 800);
   };
 
   return (
     <div className="relative min-h-[calc(100vh-5rem)] flex flex-col justify-center items-center px-4 py-8 sm:py-12">
-      
-      {/* Background Animated Gradient Orbs */}
-      <div className="absolute top-1/4 left-10 w-80 h-80 bg-primary-400/20 dark:bg-primary-500/10 rounded-full blur-3xl -z-10 animate-pulse-slow"></div>
-      <div className="absolute bottom-1/4 right-10 w-80 h-80 bg-emerald-400/20 dark:bg-emerald-500/10 rounded-full blur-3xl -z-10 animate-pulse-slow" style={{ animationDelay: '1.5s' }}></div>
 
       {/* Success Notification Toast */}
       {successToast && (
-        <div className="fixed top-20 right-5 z-50 flex items-center space-x-2 bg-gradient-to-r from-emerald-500 to-primary-600 text-white px-6 py-4 rounded-2xl shadow-xl animate-bounce max-w-md">
+        <div className="fixed top-20 right-5 z-50 flex items-center space-x-2 bg-gradient-to-r from-emerald-500 to-primary-600 text-white px-6 py-4 rounded-2xl shadow-xl animate-scale-up max-w-md">
           <Check className="h-5 w-5 stroke-[3] flex-shrink-0" />
           <span className="font-semibold text-sm">{successToast}</span>
         </div>

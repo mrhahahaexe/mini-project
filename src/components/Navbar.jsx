@@ -53,6 +53,10 @@ export default function Navbar({ user, onLogout }) {
     return location.pathname.startsWith(path);
   };
 
+  if (location.pathname === '/verify-email') {
+    return null;
+  }
+
   const isAuthPage = location.pathname === '/login';
 
   return (

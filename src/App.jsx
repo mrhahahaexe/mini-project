@@ -10,9 +10,17 @@ import Safety from './pages/Safety';
 import Tips from './pages/Tips';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
+import VerifyEmail from './pages/VerifyEmail';
 
 export default function App() {
   const location = useLocation();
+
+  // Helper to enforce authentication & verification
+  const renderProtected = (element) => {
+    if (!user) return <Navigate to="/login" replace />;
+    if (user.isVerified === false) return <Navigate to="/verify-email" replace />;
+    return element;
+  };
 
   // 0. User Authentication State
   const [user, setUser] = useState(() => {
@@ -146,39 +154,35 @@ export default function App() {
             <Route 
               path="/search" 
               element={
-                user ? (
+                renderProtected(
                   <Search 
                     searchState={searchState} 
                     setSearchState={setSearchState} 
                   />
-                ) : (
-                  <Navigate to="/login" replace />
                 )
               } 
             />
             <Route 
               path="/recipes" 
               element={
-                user ? (
+                renderProtected(
                   <Recipes 
                     searchState={searchState} 
                     favorites={favorites} 
                     onToggleFavorite={handleToggleFavorite} 
                     onAddFoodLog={handleAddFoodLog}
                   />
-                ) : (
-                  <Navigate to="/login" replace />
                 )
               } 
             />
             <Route 
               path="/chat" 
-              element={user ? <Chat /> : <Navigate to="/login" replace />} 
+              element={renderProtected(<Chat />)} 
             />
             <Route 
               path="/dashboard" 
               element={
-                user ? (
+                renderProtected(
                   <Dashboard
                     foodLog={foodLog}
                     onRemoveFoodLog={handleRemoveFoodLog}
@@ -186,8 +190,6 @@ export default function App() {
                     waterLog={waterLog}
                     onUpdateWaterLog={handleUpdateWaterLog}
                   />
-                ) : (
-                  <Navigate to="/login" replace />
                 )
               } 
             />
@@ -196,7 +198,7 @@ export default function App() {
             <Route 
               path="/profile" 
               element={
-                user ? (
+                renderProtected(
                   <Profile 
                     user={user}
                     onLogout={handleLogout}
@@ -205,11 +207,10 @@ export default function App() {
                     favorites={favorites} 
                     onToggleFavorite={handleToggleFavorite} 
                   />
-                ) : (
-                  <Navigate to="/login" replace />
                 )
               } 
             />
+            <Route path="/verify-email" element={<VerifyEmail user={user} onLogin={handleLogin} />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
           </Routes>
         </div>

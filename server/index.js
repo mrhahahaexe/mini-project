@@ -218,6 +218,37 @@ app.post('/api/extract-text', upload.single('file'), async (req, res) => {
   }
 });
 
+/**
+ * POST /api/verify-email
+ * Body: { email: string, code: string }
+ * Returns: { success: boolean, message: string }
+ */
+app.post('/api/verify-email', (req, res) => {
+  const { email, code } = req.body || {};
+  if (!email || !code) {
+    return res.status(400).json({ error: 'Email and 6-digit verification code are required.' });
+  }
+  const cleanCode = String(code).trim();
+  if (!/^\d{6}$/.test(cleanCode)) {
+    return res.status(400).json({ error: 'Invalid verification code. Please check your email and try again.' });
+  }
+  // Simulated verification check (accepts any valid 6-digit numeric string)
+  res.json({ success: true, message: 'Email verified successfully!', email });
+});
+
+/**
+ * POST /api/resend-code
+ * Body: { email: string }
+ * Returns: { success: boolean, message: string }
+ */
+app.post('/api/resend-code', (req, res) => {
+  const { email } = req.body || {};
+  if (!email) {
+    return res.status(400).json({ error: 'Email address is required to resend verification code.' });
+  }
+  res.json({ success: true, message: 'A new verification code has been sent to your email.' });
+});
+
 // In production, serve the built frontend from dist/ (single-command deploy)
 const distPath = path.resolve(__dirname, '../dist');
 app.use(express.static(distPath));
